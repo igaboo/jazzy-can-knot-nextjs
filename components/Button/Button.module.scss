@@ -1,0 +1,33 @@
+.button {
+  cursor: pointer;
+  user-select: none;
+
+  background-color: #ffffff31;
+  color: #fff;
+
+  padding: 1rem 2rem;
+  border-radius: 10rem;
+
+  transition: all 200ms ease;
+
+  svg {
+    margin-left: 1rem;
+
+    transition: transform 300ms ease;
+  }
+}
+
+.button:hover {
+  background-color: #fff;
+  color: #000;
+
+  transition: none;
+
+  svg {
+    transform: translate(5px);
+  }
+}
+
+.button:active {
+  filter: brightness(0.9);
+}

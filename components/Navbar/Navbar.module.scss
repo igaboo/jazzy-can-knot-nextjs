@@ -1,0 +1,25 @@
+.bg {
+  background-color: #fff;
+  color: #000;
+
+  position: sticky;
+  top: 0;
+}
+
+.container {
+  width: min(calc(100% - 2rem), 1400px);
+  margin-inline: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  li {
+    display: inline-block;
+  }
+}

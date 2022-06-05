@@ -1,0 +1,38 @@
+.bg {
+  background-color: #358457;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 35% 1fr;
+
+  gap: 3rem;
+  align-items: center;
+
+  width: min(calc(100% - 2rem), 1400px);
+  margin-inline: auto;
+}
+
+.imageContainer {
+  overflow: hidden;
+
+  max-height: 40rem;
+
+  img {
+    margin-top: 3rem;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.content {
+  color: #fff;
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 2rem;
+  }
+}
