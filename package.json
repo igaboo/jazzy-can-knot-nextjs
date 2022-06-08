@@ -25,6 +25,7 @@
     "react-hot-toast": "^2.2.0",
     "react-spinners": "^0.12.0",
     "sass": "^1.52.2",
+    "sharp": "^0.30.6",
     "stripe": "^9.6.0"
   },
   "devDependencies": {
