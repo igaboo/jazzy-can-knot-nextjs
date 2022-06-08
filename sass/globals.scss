@@ -1,2 +1,7 @@
 @use "./resets";
 @use "./types";
+@use "./components";
+
+body {
+  overflow-x: hidden;
+}
