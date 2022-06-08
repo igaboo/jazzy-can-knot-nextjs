@@ -4,6 +4,7 @@ export { default as Cart } from "./Cart/Cart";
 export { default as FeaturedPosts } from "./FeaturedPosts/FeaturedPosts";
 export { default as Footer } from "./Footer/Footer";
 export { default as Hero } from "./Hero/Hero";
+export { default as Layout } from "./Layout/Layout";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as NotificationBanner } from "./NotificationBanner/NotificationBanner";
 export { default as ProductBanner } from "./ProductBanner/ProductBanner";
