@@ -1,0 +1,74 @@
+.container {
+  width: min(calc(100% - 2rem), 1400px);
+  margin-inline: auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 120px;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  button {
+    width: fit-content;
+    margin-inline: auto;
+
+    margin-top: 120px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.product {
+  padding: 2rem;
+
+  transition: background-color 200ms ease;
+
+  svg {
+    transition: transform 300ms ease;
+  }
+}
+
+.product:hover {
+  cursor: pointer;
+  user-select: none;
+
+  background-color: rgba(0, 0, 0, 0.019);
+
+  p:first-child {
+    text-decoration: underline;
+  }
+
+  svg {
+    transform: translate(5px);
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .product {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
