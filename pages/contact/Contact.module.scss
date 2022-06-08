@@ -1,0 +1,46 @@
+.container {
+  width: min(calc(100% - 10rem), 1200px);
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 5rem;
+
+  p:first-of-type {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    width: fit-content;
+    padding-inline: 0.5rem;
+
+    margin-bottom: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+
+  button:hover,
+  li:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 5rem;
+}
