@@ -1,15 +1,39 @@
+import styles from "./Index.module.scss";
+
 import {
-  NotificationBanner,
-  Navbar,
   Hero,
   ProductBanner,
   Products,
   BulkContact,
   FeaturedPosts,
-  Footer,
 } from "../components";
 
 import { client } from "../lib/client";
+
+export default function Index({ products, banner }) {
+  return (
+    <>
+      <Hero banner={banner && banner[0]} />
+      {products
+        .filter((product) => product.featured === true)
+        .map((product) => {
+          return (
+            <ProductBanner key={product._id} product={product && product} />
+          );
+        })}
+      <div className={styles.gap} />
+      <Products
+        title="Tie Blankets"
+        showButton
+        products={
+          products && products.filter((product) => product.featured === false)
+        }
+      />
+      <BulkContact />
+      <FeaturedPosts />
+    </>
+  );
+}
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
@@ -22,29 +46,3 @@ export const getServerSideProps = async () => {
     props: { products, banner },
   };
 };
-
-export default function Home({ products, banner }) {
-  return (
-    <>
-      <NotificationBanner />
-      <Navbar />
-      <Hero banner={banner && banner[0]} />
-      {products
-        .filter((product) => product.featured === true)
-        .map((product) => {
-          return (
-            <ProductBanner key={product._id} product={product && product} />
-          );
-        })}
-      <Products
-        title="Tie Blankets"
-        products={
-          products && products.filter((product) => product.featured === false)
-        }
-      />
-      <BulkContact />
-      <FeaturedPosts />
-      <Footer />
-    </>
-  );
-}
