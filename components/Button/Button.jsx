@@ -7,7 +7,13 @@ import Link from "next/link";
 export default function Button({ text, href, color }) {
   return (
     <Link href={href}>
-      <button className={styles.button}>
+      <button
+        style={{
+          backgroundColor: color ? color : "#ffffff31",
+          color: color ? "#000" : "#fff",
+        }}
+        className={styles.button}
+      >
         <h4>
           {text}
           <FontAwesomeIcon icon={faArrowRight} />

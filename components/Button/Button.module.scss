@@ -2,8 +2,8 @@
   cursor: pointer;
   user-select: none;
 
-  background-color: #ffffff31;
-  color: #fff;
+  // background-color: #ffffff31;
+  // color: #fff;
 
   padding: 1rem 2rem;
   border-radius: 10rem;
@@ -18,8 +18,8 @@
 }
 
 .button:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: #fff !important;
+  color: #000 !important;
 
   transition: none;
 
