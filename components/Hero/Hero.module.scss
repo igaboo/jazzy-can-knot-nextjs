@@ -36,3 +36,22 @@
     margin-bottom: 2rem;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    padding-top: 5rem;
+  }
+
+  .content p {
+    max-width: 600px;
+  }
+
+  .imageContainer {
+    max-height: 20rem;
+  }
+}
