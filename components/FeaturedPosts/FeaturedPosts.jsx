@@ -51,7 +51,7 @@ export default function FeaturedPosts() {
       <div className={styles.grid}>
         {feed?.map((post) => {
           return (
-            <Link href={post.permalink}>
+            <Link href={post.permalink} key={post.id}>
               <a>
                 <div className={styles.imageContainer}>
                   <img src={post.mediaUrl} />
