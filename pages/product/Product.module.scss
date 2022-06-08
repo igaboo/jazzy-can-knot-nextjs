@@ -1,0 +1,108 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 40%;
+  gap: 5rem;
+  align-items: flex-start;
+
+  width: min(calc(100% - 2rem), 1400px);
+  margin-inline: auto;
+
+  margin-top: 5rem;
+
+  img {
+    width: 100%;
+  }
+}
+
+.content {
+  position: sticky;
+  top: 20vh;
+
+  h3 {
+    margin-top: 2rem;
+  }
+
+  h6:hover svg {
+    transform: translate(-5px);
+  }
+
+  h6 svg {
+    margin-right: 1rem;
+
+    transition: transform 300ms ease;
+  }
+
+  p {
+    margin-top: 2rem;
+  }
+}
+
+.sizeSelector {
+  margin-top: 4rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+
+    button.active {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.quantitySelector {
+  margin-top: 1rem;
+
+  header {
+    margin-bottom: 1rem;
+  }
+
+  .tile {
+    background-color: black;
+    color: white;
+    width: 4rem;
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quantityButton {
+    display: flex;
+    align-items: center;
+
+    width: fit-content;
+    height: fit-content;
+
+    border: 2px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+
+    h5 {
+      padding-inline: 1.5rem;
+    }
+  }
+}
+
+.buttons {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  height: 4rem;
+}
+
+.gap {
+  margin-top: 180px;
+}
