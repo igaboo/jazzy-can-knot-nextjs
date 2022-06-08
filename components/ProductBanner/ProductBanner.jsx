@@ -18,7 +18,7 @@ export default function ProductBanner({ product }) {
           <Button
             text="View Pattern"
             href={`/product/${slug.current}`}
-            color={color}
+            // color={color}
           />
         </div>
       </div>
