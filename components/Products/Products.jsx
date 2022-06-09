@@ -44,7 +44,7 @@ function Product({ product }) {
   const router = useRouter();
 
   const [focusedImage, setFocusedImage] = useState();
-  const [hoverColor, setHoverColor] = useState(color + "00");
+  // const [hoverColor, setHoverColor] = useState(color + "00");
 
   useEffect(() => {
     setFocusedImage(image[0]);
@@ -57,12 +57,12 @@ function Product({ product }) {
         className={styles.product}
         onMouseEnter={() => {
           setFocusedImage(image[1] ? image[1] : image[0]);
-          setHoverColor(color + "10");
+          // setHoverColor(color + "10");
         }}
-        style={{ backgroundColor: hoverColor }}
+        // style={{ backgroundColor: hoverColor }}
         onMouseLeave={() => {
           setFocusedImage(image[0]);
-          setHoverColor(color + "00");
+          // setHoverColor(color + "00");
         }}
       >
         <img
