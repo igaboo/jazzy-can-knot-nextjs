@@ -14,7 +14,7 @@ import Head from "next/head";
 
 export default function ProductDetails({ product, products }) {
   const { image, name, details, price, color } = product;
-  const { quantity, onAdd, setShowCart } = useStateContext();
+  const { quantity, onAdd, setShowCart, setFooterColor } = useStateContext();
 
   const router = useRouter();
 
@@ -23,6 +23,7 @@ export default function ProductDetails({ product, products }) {
 
   useEffect(() => {
     setCurrentImage(image[0]);
+    setFooterColor(color);
   }, [router]);
 
   return (
