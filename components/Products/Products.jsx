@@ -9,10 +9,19 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 import { useRouter } from "next/router";
+import { useInView } from "react-cool-inview";
+import { useStateContext } from "../../context/StateContext";
 
 export default function Products({ title, products, showButton, max }) {
+  const { setNavColor } = useStateContext();
+
+  const { observe, inView, entry } = useInView({
+    onEnter: () => setNavColor("#fff"),
+    rootMargin: "0px 0px -100%",
+  });
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={observe}>
       {title && <h2>{title}</h2>}
 
       <div className={styles.grid}>
@@ -34,7 +43,7 @@ function Product({ product }) {
 
   const router = useRouter();
 
-  const [focusedImage, setFocusedImage] = useState(image[0]);
+  const [focusedImage, setFocusedImage] = useState();
 
   useEffect(() => {
     setFocusedImage(image[0]);
@@ -50,7 +59,7 @@ function Product({ product }) {
       >
         <img
           id={_id}
-          src={urlFor(focusedImage && focusedImage)}
+          src={urlFor(focusedImage ? focusedImage : image[0])}
           alt="pattern"
         />
         <div className={styles.content}>

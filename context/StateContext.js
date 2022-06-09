@@ -8,6 +8,7 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [navColor, setNavColor] = useState("#358457");
 
   function onAdd(product, quantity) {
     setTotalPrice((prev) => prev + product.price * quantity);
@@ -38,6 +39,8 @@ export const StateContext = ({ children }) => {
         quantity,
         onAdd,
         onRemove,
+        navColor,
+        setNavColor,
       }}
     >
       {children}

@@ -1,7 +1,4 @@
 .bg {
-  background-color: #fff;
-  color: #000;
-
   position: sticky;
   top: 0;
 
@@ -61,6 +58,10 @@
 
     margin: 0;
     padding: 0;
+
+    color: inherit;
+
+    padding: 5px;
   }
 
   button span {
@@ -85,7 +86,7 @@
   }
 
   button:hover {
-    background-color: #f2f2f2;
+    background-color: #ffffff25;
   }
 }
 

@@ -8,15 +8,31 @@ import { useStateContext } from "../../context/StateContext";
 import Cart from "../Cart/Cart";
 
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Navbar() {
-  const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const { showCart, setShowCart, totalQuantities, navColor, setNavColor } =
+    useStateContext();
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (router.pathname === "/") {
+      setNavColor("#358457");
+    } else {
+      setNavColor("#fff");
+    }
+  }, [router]);
+
   return (
     <>
-      <div className={styles.bg}>
+      <div
+        style={{
+          backgroundColor: navColor,
+          color: navColor !== "#fff" ? "white" : "black",
+        }}
+        className={styles.bg}
+      >
         <div className={styles.container}>
           <Link href="/">
             <a>
