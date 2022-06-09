@@ -177,3 +177,26 @@
   margin-left: 1rem;
   padding-top: 12px;
 }
+
+@media screen and (max-width: 700px) {
+  .wrapper {
+    display: none;
+    width: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .active {
+    display: block;
+  }
+
+  .container {
+    padding: 1rem;
+
+    header {
+      margin-top: 1rem;
+    }
+  }
+}

@@ -12,7 +12,7 @@ export default function Products({ products }) {
         <h5 className="dim">Showing {products.length} blankets</h5>
       </div>
       <ProductsList products={products} />
-      <div className={styles.gap} />
+      <div className="gap" />
     </>
   );
 }

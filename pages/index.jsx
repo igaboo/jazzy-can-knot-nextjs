@@ -21,7 +21,7 @@ export default function Index({ products, banner }) {
             <ProductBanner key={product._id} product={product && product} />
           );
         })}
-      <div className={styles.gap} />
+      <div className="gap" />
       <Products
         title="Tie Blankets"
         showButton

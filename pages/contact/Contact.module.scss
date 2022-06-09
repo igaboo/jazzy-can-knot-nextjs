@@ -2,6 +2,8 @@
   width: min(calc(100% - 10rem), 1200px);
   margin: auto;
 
+  padding-block: 5rem;
+
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
@@ -19,7 +21,7 @@
 
   li {
     width: fit-content;
-    padding-inline: 0.5rem;
+    padding: 0.25rem 0.5rem;
 
     margin-bottom: 0.5rem;
 
@@ -43,4 +45,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr auto;
   gap: 5rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    gap: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    width: 100%;
+
+    padding: 2rem;
+  }
 }
