@@ -27,6 +27,8 @@
 .product {
   padding: 2rem;
 
+  border-radius: 10px;
+
   transition: background-color 200ms ease;
 
   svg {
@@ -39,6 +41,10 @@
   user-select: none;
 
   background-color: rgba(0, 0, 0, 0.019);
+
+  // p {
+  //   color: white !important;
+  // }
 
   p:first-child {
     text-decoration: underline;
