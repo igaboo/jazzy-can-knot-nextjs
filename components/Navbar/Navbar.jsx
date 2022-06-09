@@ -41,13 +41,25 @@ export default function Navbar() {
           </Link>
           <h6>
             <ul>
-              <li className={router.pathname === "/about" && styles.active}>
+              <li
+                className={
+                  router.pathname === "/about" ? styles.active : undefined
+                }
+              >
                 <Link href="/about">About</Link>
               </li>
-              <li className={router.pathname === "/contact" && styles.active}>
+              <li
+                className={
+                  router.pathname === "/contact" ? styles.active : undefined
+                }
+              >
                 <Link href="/contact">Contact</Link>
               </li>
-              <li className={router.pathname === "/products" && styles.active}>
+              <li
+                className={
+                  router.pathname === "/products" ? styles.active : undefined
+                }
+              >
                 <Link href="/products">Products</Link>
               </li>
               <li className={styles.cart}>
