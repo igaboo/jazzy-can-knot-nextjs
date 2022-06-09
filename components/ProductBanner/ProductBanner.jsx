@@ -12,7 +12,7 @@ export default function ProductBanner({ product }) {
 
   const { observe, inView, entry } = useInView({
     onEnter: () => setNavColor(color),
-    rootMargin: "0px 0px -100%",
+    rootMargin: "0px 0px -94% ",
   });
 
   return (
