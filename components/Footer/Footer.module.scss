@@ -15,6 +15,10 @@
   width: min(calc(100% - 2rem), 1400px);
   margin-inline: auto;
 
+  a:hover {
+    text-decoration: underline;
+  }
+
   p,
   li {
     max-width: 250px;
