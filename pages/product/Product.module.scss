@@ -11,6 +11,13 @@
 
   img {
     width: 100%;
+    border-radius: 10px;
+  }
+
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
   }
 }
 
@@ -25,7 +32,7 @@
   margin-inline: auto;
 
   img {
-    width: 100%;
+    width: auto;
     margin: auto;
   }
 
@@ -35,10 +42,12 @@
     gap: 1rem;
 
     img {
+      height: auto;
+      width: auto;
       margin: 0;
       padding: 0.5rem;
 
-      background-color: rgb(235, 235, 235);
+      background-color: #ebebeb;
       border-radius: 5px;
     }
   }
@@ -50,7 +59,8 @@
 
 .content {
   position: sticky;
-  top: 20vh;
+
+  top: 10rem;
 
   h3 {
     margin-top: 2rem;

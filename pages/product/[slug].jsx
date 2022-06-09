@@ -13,7 +13,7 @@ import { useStateContext } from "../../context/StateContext";
 import Head from "next/head";
 
 export default function ProductDetails({ product, products }) {
-  const { image, name, details, price } = product;
+  const { image, name, details, price, color } = product;
   const { quantity, onAdd, setShowCart } = useStateContext();
 
   const router = useRouter();
@@ -29,11 +29,19 @@ export default function ProductDetails({ product, products }) {
     <>
       <Head>
         <title>{name} | Jazzy Can Knot</title>
+        <meta name="theme-color" content={color} />
       </Head>
       <div className={styles.grid}>
         <div className={styles.imageContainer}>
           {image?.map((image, index) => (
-            <img key={index} src={urlFor(image)} alt="preview" />
+            <img
+              key={index}
+              src={urlFor(image)}
+              alt="preview"
+              // style={{
+              //   backgroundColor: color + "20",
+              // }}
+            />
           ))}
         </div>
         <div className={styles.content}>
@@ -147,6 +155,10 @@ export default function ProductDetails({ product, products }) {
           {image?.map((image, index) => {
             return (
               <img
+                style={{
+                  backgroundColor:
+                    currentImage === image ? color + "30" : "#ebebeb16",
+                }}
                 key={index}
                 src={urlFor(image)}
                 alt="preview"
