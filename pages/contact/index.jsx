@@ -25,8 +25,8 @@ export default function Contact() {
         <div className={styles.card}>
           <p>Business</p>
           <p className="dim">
-            Want to work with me? Fantastic! Send all business related inquiries
-            here.
+            Want to work with me? Fantastic! Send me an email for any business
+            related inquiries.
           </p>
           <button className="btn-small">
             Email jazzlyn01@live.com <FontAwesomeIcon icon={faArrowRight} />
