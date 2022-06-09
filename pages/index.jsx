@@ -9,8 +9,16 @@ import {
 } from "../components";
 
 import { client } from "../lib/client";
+import { useEffect } from "react";
+import { useStateContext } from "../context/StateContext";
 
 export default function Index({ products, banner }) {
+  const { setFooterColor } = useStateContext();
+
+  useEffect(() => {
+    setFooterColor();
+  }, []);
+
   return (
     <>
       <Hero banner={banner && banner[0]} />
