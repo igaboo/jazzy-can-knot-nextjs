@@ -23,6 +23,8 @@
   li {
     max-width: 250px;
 
+    font-size: 18px;
+
     color: #ffffffbe;
   }
 
@@ -103,6 +105,11 @@
 
     width: 100%;
     margin-inline: auto;
+
+    .column:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.275);
+      padding-bottom: 3rem;
+    }
 
     p,
     li,
