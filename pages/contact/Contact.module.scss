@@ -21,13 +21,13 @@
 
   li {
     width: fit-content;
-    padding: 0.25rem 0.5rem;
+    padding: 1rem 1rem;
 
     margin-bottom: 0.5rem;
 
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   button {
@@ -36,8 +36,7 @@
 
   button:hover,
   li:hover {
-    background-color: black;
-    color: white;
+    filter: brightness(0.9);
   }
 }
 

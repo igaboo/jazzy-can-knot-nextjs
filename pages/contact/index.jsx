@@ -1,4 +1,10 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faArrowRightArrowLeft,
+  faBellConcierge,
+  faLock,
+  faMedal,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Contact.module.scss";
 
@@ -39,25 +45,25 @@ export default function Contact() {
               <Link href="/return-policy">
                 <a>Return Policy</a>
               </Link>
-              <FontAwesomeIcon icon={faArrowRight} />
+              <FontAwesomeIcon icon={faArrowRightArrowLeft} />
             </li>
             <li className="btn-small">
               <Link href="/quality-guarantee">
                 <a>Quality Guarantee</a>
               </Link>
-              <FontAwesomeIcon icon={faArrowRight} />
+              <FontAwesomeIcon icon={faMedal} />
             </li>
             <li className="btn-small">
               <Link href="/privacy-policy">
                 <a>Privacy Policy</a>
               </Link>
-              <FontAwesomeIcon icon={faArrowRight} />
+              <FontAwesomeIcon icon={faLock} />
             </li>
             <li className="btn-small">
               <Link href="/terms-of-service">
                 <a>Terms of Service</a>
               </Link>
-              <FontAwesomeIcon icon={faArrowRight} />
+              <FontAwesomeIcon icon={faBellConcierge} />
             </li>
           </ul>
           <p></p>
