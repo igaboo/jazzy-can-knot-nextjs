@@ -8,9 +8,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import Link from "next/link";
+import { useStateContext } from "../../context/StateContext";
 
 export default function Footer() {
   const sitemap = ["home", "about", "products", "contact", "cart"];
+
+  const { footerColor } = useStateContext();
+
   const legal = [
     "return policy",
     "quality guarantee",
@@ -19,7 +23,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className={styles.bg}>
+    <footer
+      style={{ backgroundColor: footerColor ? footerColor : "#358457" }}
+      className={styles.bg}
+    >
       <div className={styles.container}>
         <div className={styles.column}>
           <h4>Jazzy Can Knot</h4>
