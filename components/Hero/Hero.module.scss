@@ -5,8 +5,8 @@
 .container {
   display: grid;
   grid-template-columns: 35% 1fr;
+  column-gap: 3rem;
 
-  gap: 3rem;
   align-items: center;
 
   width: min(calc(100% - 2rem), 1400px);
@@ -19,7 +19,6 @@
   max-height: 40rem;
 
   display: flex;
-  align-items: flex-end;
 
   img {
     margin-top: 3rem;
@@ -50,18 +49,17 @@
     padding-bottom: 3rem;
   }
 
+  .content {
+    margin-top: 3rem;
+  }
+
   .content p {
     max-width: 600px;
   }
 
   .imageContainer {
     max-height: 15rem;
-
-    img {
-      margin-top: 3rem;
-      width: 100%;
-      height: 100%;
-    }
+    align-items: flex-end;
   }
 }
 

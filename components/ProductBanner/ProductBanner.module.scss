@@ -35,8 +35,6 @@
 .content {
   color: #fff;
 
-  text-align: center;
-
   h1 {
     margin-bottom: 1rem;
   }
@@ -53,6 +51,10 @@
     flex-direction: column;
 
     padding-bottom: 3rem;
+  }
+
+  .content {
+    text-align: center;
   }
 
   .content p {
