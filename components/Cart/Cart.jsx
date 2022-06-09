@@ -14,8 +14,6 @@ import {
   faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import FadeLoader from "react-spinners/FadeLoader";
-
 import getStripe from "../../lib/getStripe";
 import toast from "react-hot-toast";
 
@@ -140,9 +138,7 @@ export default function Cart({ showCart }) {
               onClick={handleCheckout}
             >
               {loading ? (
-                <div className={styles.loadingContainer}>
-                  <FadeLoader height={10} margin={-5} />
-                </div>
+                "Loading..."
               ) : (
                 <>
                   Check out <FontAwesomeIcon icon={faArrowRight} />
