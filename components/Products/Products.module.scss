@@ -49,6 +49,11 @@
   }
 }
 
+.product:active {
+  background-color: rgba(0, 0, 0, 0.156);
+  transition: none;
+}
+
 .content {
   display: flex;
   align-items: center;
