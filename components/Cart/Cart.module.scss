@@ -33,6 +33,10 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 
+  svg {
+    color: black;
+  }
+
   header {
     margin-top: 3rem;
 
@@ -125,7 +129,7 @@
 
 .product {
   display: grid;
-  grid-template-columns: 40% 1fr;
+  grid-template-columns: 30% 1fr;
   gap: 1rem;
 
   header {
@@ -148,6 +152,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  height: 100%;
 
   padding: 1rem;
 }
@@ -185,7 +191,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    left: 5%;
+    left: 10%;
   }
 
   .active {
@@ -202,6 +208,14 @@
 
     main button {
       width: fit-content;
+    }
+  }
+
+  .content {
+    padding: 0;
+
+    header {
+      margin-top: 0;
     }
   }
 }
