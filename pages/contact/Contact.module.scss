@@ -62,5 +62,17 @@
     width: 100%;
 
     padding: 2rem;
+
+    button,
+    li {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .grid {
   }
 }

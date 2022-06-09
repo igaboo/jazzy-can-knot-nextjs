@@ -9,8 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Contact.module.scss";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { useStateContext } from "../../context/StateContext";
 
 export default function Contact() {
+  const { setFooterColor } = useStateContext();
+
+  useEffect(() => {
+    setFooterColor();
+  }, []);
+
   return (
     <div className={styles.container}>
       <header>
