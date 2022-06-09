@@ -2,7 +2,7 @@ import styles from "./Product.module.scss";
 
 import { client, urlFor } from "../../lib/client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +19,11 @@ export default function ProductDetails({ product, products }) {
   const router = useRouter();
 
   const [size, setSize] = useState("S");
+  const [currentImage, setCurrentImage] = useState(image[0]);
+
+  useEffect(() => {
+    setCurrentImage(image[0]);
+  }, [router]);
 
   return (
     <>
@@ -137,8 +142,19 @@ export default function ProductDetails({ product, products }) {
         </div>
       </div>
       <div className={styles.mobileGrid}>
-        <img src={urlFor(image[0])} alt="preview" />
-
+        <img src={urlFor(currentImage)} alt="preview" />
+        <div className={styles.imageContainer}>
+          {image?.map((image, index) => {
+            return (
+              <img
+                key={index}
+                src={urlFor(image)}
+                alt="preview"
+                onMouseEnter={() => setCurrentImage(image)}
+              />
+            );
+          })}
+        </div>
         <div className={styles.content}>
           <button className="dim" onClick={() => router.back()}>
             <h6>
@@ -243,12 +259,6 @@ export default function ProductDetails({ product, products }) {
             <button className="btn-secondary">Share</button>
           </div>
         </div>
-        <div className={styles.imageContainer}>
-          {image?.map((image, index) => {
-            if (index === 0) return;
-            return <img key={index} src={urlFor(image)} alt="preview" />;
-          })}
-        </div>
       </div>
       <div className="gap" />
       <Products title="You Might Also Like" products={products} max={3} />
@@ -262,7 +272,20 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const product = await client.fetch(query);
 
   const productsQuery = `*[_type == "product" && slug.current != '${slug}']`;
-  const products = await client.fetch(productsQuery);
+  const orderedProducts = await client.fetch(productsQuery);
+
+  function shuffleArray(array) {
+    const newArray = [...array];
+
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+
+    return newArray;
+  }
+
+  const products = shuffleArray(orderedProducts);
 
   return {
     props: { product, products },

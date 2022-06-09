@@ -26,6 +26,21 @@
 
   img {
     width: 100%;
+    margin: auto;
+  }
+
+  .imageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+
+    img {
+      margin: 0;
+      padding: 0.5rem;
+
+      background-color: rgb(235, 235, 235);
+      border-radius: 5px;
+    }
   }
 
   .content {
