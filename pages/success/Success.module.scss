@@ -7,6 +7,8 @@
   flex-direction: column;
   text-align: center;
 
+  padding-block: 5rem;
+
   svg {
     margin-bottom: 3rem;
   }
@@ -22,5 +24,17 @@
 
   button {
     padding-inline: 2rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 100%;
+
+    padding: 2rem;
+    padding-block: 5rem;
+    p {
+      max-width: none;
+    }
   }
 }
