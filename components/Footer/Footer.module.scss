@@ -20,12 +20,20 @@
   }
 
   p,
-  li {
+  li,
+  button {
     max-width: 250px;
+
+    margin: 0;
+    padding: 0;
 
     font-size: 18px;
 
     color: #ffffffbe;
+  }
+
+  button {
+    text-transform: capitalize;
   }
 
   .long {

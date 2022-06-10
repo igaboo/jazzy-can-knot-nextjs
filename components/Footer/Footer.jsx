@@ -11,9 +11,9 @@ import Link from "next/link";
 import { useStateContext } from "../../context/StateContext";
 
 export default function Footer() {
-  const sitemap = ["home", "about", "products", "contact", "cart"];
+  const sitemap = ["home", "about", "products", "contact", "basket"];
 
-  const { footerColor } = useStateContext();
+  const { footerColor, setShowCart } = useStateContext();
 
   const legal = [
     "return policy",
@@ -65,9 +65,16 @@ export default function Footer() {
             {sitemap.map((link, index) => {
               return (
                 <li key={index}>
-                  <Link href={`/${link === "home" ? "" : link}`}>
-                    <a>{link}</a>
-                  </Link>
+                  {link !== "basket" && (
+                    <Link href={`/${link === "home" ? "" : link}`}>
+                      <a>{link}</a>
+                    </Link>
+                  )}
+                  {link === "basket" && (
+                    <button onClick={() => setShowCart(true)}>
+                      <a>{link}</a>
+                    </button>
+                  )}
                 </li>
               );
             })}
