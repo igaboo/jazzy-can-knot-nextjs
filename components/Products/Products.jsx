@@ -11,26 +11,31 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useInView } from "react-cool-inview";
 import { useStateContext } from "../../context/StateContext";
+import FadeIn from "../../animation/FadeIn";
 
 export default function Products({ title, products, showButton, max }) {
   const { setNavColor } = useStateContext();
 
-  const { observe, inView, entry } = useInView({
+  const { observe } = useInView({
     onEnter: () => setNavColor("#fff"),
     rootMargin: "0px 0px -100%",
   });
 
   return (
     <div className={styles.container} ref={observe}>
-      {title && <h2>{title}</h2>}
+      <FadeIn key={products[0].name + title}>
+        {title && <h2>{title}</h2>}
+      </FadeIn>
+      <FadeIn key={products[0].color + title}>
+        <div className={styles.grid}>
+          {products?.map((product, index) => {
+            if (index > max - 1) return;
 
-      <div className={styles.grid}>
-        {products?.map((product, index) => {
-          if (index > max - 1) return;
+            return <Product key={index} product={product} index={index} />;
+          })}
+        </div>
+      </FadeIn>
 
-          return <Product key={index} product={product} index={index} />;
-        })}
-      </div>
       {showButton && (
         <Button text="View All" href="/products" color="#F9FFF6" />
       )}

@@ -5,6 +5,7 @@ import { urlFor } from "../../lib/client";
 import { Button } from "../";
 import { useInView } from "react-cool-inview";
 import { useStateContext } from "../../context/StateContext";
+import FadeIn from "../../animation/FadeIn";
 
 export default function Hero({ banner }) {
   const { setNavColor } = useStateContext();
