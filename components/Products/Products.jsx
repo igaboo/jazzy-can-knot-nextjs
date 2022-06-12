@@ -23,10 +23,10 @@ export default function Products({ title, products, showButton, max }) {
 
   return (
     <div className={styles.container} ref={observe}>
-      <FadeIn key={products[0].name + title}>
+      <FadeIn key={products[0]?.name + title}>
         {title && <h2>{title}</h2>}
       </FadeIn>
-      <FadeIn key={products[0].color + title}>
+      <FadeIn key={products[0]?.color + title}>
         <div className={styles.grid}>
           {products?.map((product, index) => {
             if (index > max - 1) return;
@@ -37,7 +37,7 @@ export default function Products({ title, products, showButton, max }) {
       </FadeIn>
 
       {showButton && (
-        <Button text="View All" href="/products" color="#F9FFF6" />
+        <Button text="View All" href="/products" color="#e6ffda" />
       )}
     </div>
   );

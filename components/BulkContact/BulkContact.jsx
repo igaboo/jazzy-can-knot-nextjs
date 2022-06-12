@@ -13,7 +13,7 @@ export default function BulkContact() {
           ahead of time to ensure availability, as well as to discuss pricing,
           and turn around times.
         </p>
-        <Button text="Contact Me" href="/contact" color="#F9FFF6" />
+        <Button text="Contact Me" href="/contact" color="#e6ffda" />
       </div>
     </FadeIn>
   );
