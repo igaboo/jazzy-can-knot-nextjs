@@ -1,7 +1,11 @@
 import styles from "./Navbar.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBasketShopping,
+  faMagnifyingGlass,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 import { useStateContext } from "../../context/StateContext";
@@ -39,37 +43,49 @@ export default function Navbar() {
               <h1 className="logo">JCK</h1>
             </a>
           </Link>
-          <h6>
-            <ul>
-              <li
-                className={
-                  router.pathname === "/about" ? styles.active : undefined
-                }
-              >
-                <Link href="/about">About</Link>
-              </li>
-              <li
-                className={
-                  router.pathname === "/contact" ? styles.active : undefined
-                }
-              >
-                <Link href="/contact">Contact</Link>
-              </li>
-              <li
-                className={
-                  router.pathname === "/products" ? styles.active : undefined
-                }
-              >
-                <Link href="/products">Products</Link>
-              </li>
-              <li className={styles.cart}>
-                <button onClick={() => setShowCart(true)}>
-                  <FontAwesomeIcon icon={faShoppingCart} />
-                  <span>{totalQuantities}</span>
-                </button>
-              </li>
-            </ul>
-          </h6>
+          <ul>
+            <li
+              className={
+                router.pathname === "/about" ? styles.active : undefined
+              }
+            >
+              <Link href="/about">About</Link>
+            </li>
+            <li
+              className={
+                router.pathname === "/contact" ? styles.active : undefined
+              }
+            >
+              <Link href="/contact">Contact</Link>
+            </li>
+            <li
+              className={
+                router.pathname === "/products" ? styles.active : undefined
+              }
+            >
+              <Link href="/products">Products</Link>
+            </li>
+            <li
+              className={
+                router.pathname === "/collections" ? styles.active : undefined
+              }
+            >
+              <Link href="/collections">Collections</Link>
+            </li>
+          </ul>
+          <ul>
+            <li className={styles.cart}>
+              <button>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
+            </li>
+            <li className={styles.cart}>
+              <button onClick={() => setShowCart(true)}>
+                <FontAwesomeIcon icon={faBasketShopping} />
+                <span>{totalQuantities}</span>
+              </button>
+            </li>
+          </ul>
         </div>
         <Cart showCart={showCart} />
       </div>

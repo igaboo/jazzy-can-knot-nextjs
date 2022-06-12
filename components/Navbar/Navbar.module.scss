@@ -18,32 +18,56 @@
     transition: color 200ms ease, opacity 200ms ease;
   }
 
-  ul {
+  ul:not(:last-child) {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 1rem;
 
     margin: 0;
-    padding-block: 0.5rem;
+
+    li {
+      font-size: 1.25rem;
+
+      height: 4rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 4px 10px;
+      border-radius: 5px;
+
+      position: relative;
+    }
+
+    li:hover::after {
+      left: 40%;
+      right: 40%;
+    }
+
+    li::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.392);
+
+      left: 50%;
+      right: 50%;
+      bottom: 0;
+      top: 95%;
+
+      transition: all 200ms ease;
+    }
+
+    li.active::after {
+      left: 0;
+      right: 0;
+    }
   }
 
-  li:not(:last-child) {
-    font-size: 1.25rem;
-
-    padding: 4px 10px;
-    border-radius: 5px;
-
-    position: relative;
-
-    transition: color 200ms ease, opacity 200ms ease;
-  }
-
-  li:hover:not(.active) {
-    text-decoration: underline;
-  }
-
-  li.active {
-    background-color: rgba($color: rgb(0, 0, 0), $alpha: 0.1);
+  ul:last-child {
+    display: flex;
+    gap: 1rem;
   }
 }
 
@@ -69,7 +93,7 @@
   button span {
     position: absolute;
     top: 0;
-    right: -5px;
+    right: -10px;
 
     background-color: red;
     height: 1.25rem;
@@ -93,7 +117,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .container li:not(:last-child) {
+  .container ul:not(:last-child) {
     display: none;
   }
 }
