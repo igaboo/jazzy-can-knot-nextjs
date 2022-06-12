@@ -40,7 +40,10 @@ export default function Navbar() {
         <div className={styles.container}>
           <Link href="/">
             <a>
-              <h1 className="logo">JCK</h1>
+              <h1 className="logo">
+                j<span>c</span>k
+              </h1>
+              <h6>Tie Blankets</h6>
             </a>
           </Link>
           <ul>
