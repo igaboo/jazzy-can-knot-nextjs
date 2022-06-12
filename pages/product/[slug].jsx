@@ -2,29 +2,83 @@ import styles from "./Product.module.scss";
 
 import { client, urlFor } from "../../lib/client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartPlus,
+  faChevronLeft,
+  faStar,
+  faStarHalfAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { Products } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 
 import Head from "next/head";
-import SlideUp from "../../animation/SlideUp";
-import FadeIn from "../../animation/FadeIn";
+import toast from "react-hot-toast";
+import Link from "next/link";
 
-export default function ProductDetails({ product, products }) {
-  const { image, name, details, price, color } = product;
+export default function ProductDetails({ product, products, reviews }) {
+  const { image, name, details, price, color, slug, collections } =
+    product && product;
   const { quantity, onAdd, setShowCart, setFooterColor } = useStateContext();
 
   const router = useRouter();
 
   const [size, setSize] = useState("S");
   const [currentImage, setCurrentImage] = useState(image[0]);
+  const [newReviews, setNewReviews] = useState([]);
+
+  // review form
+  const [reviewRating, setReviewRating] = useState(1);
+  const [showForm, setShowForm] = useState(false);
+  const nameRef = useRef();
+  const titleRef = useRef();
+  const reviewRef = useRef();
+
+  let sum = 0;
+  for (var i = 0; i < newReviews.length; i++) {
+    sum += newReviews[i].rating;
+  }
+  let ratingAvg = (sum / newReviews.length).toFixed(1);
+
+  async function handleReview() {
+    const review = {
+      _type: "review",
+      slug: slug.current,
+      name: nameRef.current.value,
+      rating: reviewRating,
+      title: titleRef.current.value,
+      contents: reviewRef.current.value,
+    };
+
+    await client.create(review).then(() => {
+      setNewReviews([
+        ...newReviews,
+        { ...review, _createdAt: new Date().toLocaleDateString() },
+      ]);
+      setShowForm(false);
+
+      fetch(
+        "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(slug),
+        }
+      ).then((res) => {
+        console.log(res);
+        toast.success("Review successfully created!");
+      });
+    });
+  }
 
   useEffect(() => {
     setCurrentImage(image[0]);
+    setNewReviews(reviews);
     setFooterColor(color);
   }, [router]);
 
@@ -35,159 +89,37 @@ export default function ProductDetails({ product, products }) {
         <meta name="theme-color" content={color} />
       </Head>
       <div className={styles.grid}>
-        <FadeIn key={name + color}>
-          <div className={styles.imageContainer}>
-            {image?.map((image, index) => (
-              <img
-                key={index}
-                src={urlFor(image)}
-                alt="preview"
-                // style={{
-                //   backgroundColor: color + "20",
-                // }}
-              />
-            ))}
-          </div>
-        </FadeIn>
-
+        <div className={styles.imageContainer}>
+          <img
+            src={urlFor(currentImage)}
+            alt="preview"
+            className={styles.mobileImage}
+          />
+          {image?.map((image, index) => (
+            <img
+              key={index}
+              src={urlFor(image)}
+              alt="preview"
+              onMouseEnter={() => setCurrentImage(image)}
+            />
+          ))}
+        </div>
         <div className={styles.content}>
-          <FadeIn key={name + color}>
+          <header className={styles.heading}>
             <button className="dim" onClick={() => router.back()}>
-              <h6>
-                <FontAwesomeIcon icon={faArrowLeft} size="sm" />
-                Back
-              </h6>
+              <p>
+                <FontAwesomeIcon icon={faChevronLeft} /> <span>Back</span>
+              </p>
             </button>
             <h1>{name}</h1>
-            <h3>
-              $
-              {
-                price[
-                  size === "B"
-                    ? 0
-                    : size === "S"
-                    ? 1
-                    : size === "M"
-                    ? 2
-                    : size === "L"
-                    ? 3
-                    : 0
-                ]
-              }
-            </h3>
-            <h5 className="dim">
-              {size === "B" && "Baby - 1x1 yard"}
-              {size === "S" && "Small - 2x2 yards"}
-              {size === "M" && "Medium - 3x3 yards"}
-              {size === "L" && "Large - 4x4 yards"}
-            </h5>
-            <p>{details}</p>
-
-            <div className={styles.sizeSelector}>
-              <header>
-                <h5>Select Size</h5>
-                <h5 className="dim">Size Guide</h5>
-              </header>
-              <main>
-                <button
-                  onClick={() => {
-                    setSize("B");
-                  }}
-                  className={`btn-secondary ${size === "B" && styles.active}`}
-                >
-                  B
-                </button>
-                <button
-                  onClick={() => {
-                    setSize("S");
-                  }}
-                  className={`btn-secondary ${size === "S" && styles.active}`}
-                >
-                  S
-                </button>
-                <button
-                  onClick={() => {
-                    setSize("M");
-                  }}
-                  className={`btn-secondary ${size === "M" && styles.active}`}
-                >
-                  M
-                </button>
-                <button
-                  onClick={() => {
-                    setSize("L");
-                  }}
-                  className={`btn-secondary ${size === "L" && styles.active}`}
-                >
-                  L
-                </button>
-              </main>
-            </div>
-
-            <div className={styles.buttons}>
-              <button
-                className="btn-primary"
-                onClick={() => {
-                  setShowCart(true);
-                  onAdd(
-                    {
-                      ...product,
-                      price:
-                        price[
-                          size === "B"
-                            ? 0
-                            : size === "S"
-                            ? 1
-                            : size === "M"
-                            ? 2
-                            : size === "L"
-                            ? 3
-                            : 0
-                        ],
-                      size,
-                    },
-                    quantity
-                  );
-                }}
-              >
-                Add to Cart
-              </button>
-              <button className="btn-secondary">Share</button>
-            </div>
-          </FadeIn>
-        </div>
-      </div>
-      <div className={styles.mobileGrid}>
-        <SlideUp key={name + details}>
-          <img src={urlFor(currentImage)} alt="preview" />
-        </SlideUp>
-        <FadeIn key={name + color}>
-          <div className={styles.imageContainer}>
-            {image?.map((image, index) => {
-              return (
-                <img
-                  style={{
-                    backgroundColor:
-                      currentImage === image ? color + "30" : "#ebebeb16",
-                  }}
-                  key={index}
-                  src={urlFor(image)}
-                  alt="preview"
-                  onMouseEnter={() => setCurrentImage(image)}
-                />
-              );
-            })}
-          </div>
-        </FadeIn>
-
-        <div className={styles.content}>
-          <button className="dim" onClick={() => router.back()}>
-            <h6>
-              <FontAwesomeIcon icon={faArrowLeft} size="sm" />
-              Back
-            </h6>
-          </button>
-          <h1>{name}</h1>
+          </header>
+          <Link
+            href={`/collections/${
+              collections && collections[0].replaceAll(" ", "-").toLowerCase()
+            }`}
+          >
+            <p className="dim">{collections && collections[0]}</p>
+          </Link>
           <h3>
             $
             {
@@ -211,18 +143,17 @@ export default function ProductDetails({ product, products }) {
             {size === "L" && "Large - 4x4 yards"}
           </h5>
           <p>{details}</p>
-
           <div className={styles.sizeSelector}>
             <header>
-              <h5>Select Size</h5>
-              <h5 className="dim">Size Guide</h5>
+              <h6>Select Size</h6>
+              <h6 className="dim">Size Guide</h6>
             </header>
             <main>
               <button
                 onClick={() => {
                   setSize("B");
                 }}
-                className={`btn-secondary ${size === "B" && styles.active}`}
+                className={`btn-square ${size === "B" && styles.active}`}
               >
                 B
               </button>
@@ -230,7 +161,7 @@ export default function ProductDetails({ product, products }) {
                 onClick={() => {
                   setSize("S");
                 }}
-                className={`btn-secondary ${size === "S" && styles.active}`}
+                className={`btn-square ${size === "S" && styles.active}`}
               >
                 S
               </button>
@@ -238,7 +169,7 @@ export default function ProductDetails({ product, products }) {
                 onClick={() => {
                   setSize("M");
                 }}
-                className={`btn-secondary ${size === "M" && styles.active}`}
+                className={`btn-square ${size === "M" && styles.active}`}
               >
                 M
               </button>
@@ -246,13 +177,12 @@ export default function ProductDetails({ product, products }) {
                 onClick={() => {
                   setSize("L");
                 }}
-                className={`btn-secondary ${size === "L" && styles.active}`}
+                className={`btn-square ${size === "L" && styles.active}`}
               >
                 L
               </button>
             </main>
           </div>
-
           <div className={styles.buttons}>
             <button
               className="btn-primary"
@@ -280,8 +210,132 @@ export default function ProductDetails({ product, products }) {
               }}
             >
               Add to Cart
+              <FontAwesomeIcon icon={faCartPlus} />
             </button>
             <button className="btn-secondary">Share</button>
+          </div>
+          <div className={styles.reviewContainer}>
+            {newReviews?.length > 0 && (
+              <header className={styles.reviewHeader}>
+                <h1>
+                  {ratingAvg} <span className="dim">/ 5</span>
+                </h1>
+                <h4>Based on {`${newReviews?.length}`} Reviews</h4>
+
+                {newReviews?.length > 0 && (
+                  <div className={styles.overallStars}>
+                    {[...Array(Math.floor(ratingAvg))].map((e, index) => {
+                      return (
+                        <FontAwesomeIcon
+                          key={index}
+                          className={styles.star}
+                          icon={faStar}
+                        />
+                      );
+                    })}
+                    {ratingAvg % 1 === 0 &&
+                      [...Array(5 - Math.floor(ratingAvg))].map((e, index) => {
+                        return (
+                          <FontAwesomeIcon
+                            key={index}
+                            className={styles.starOpaque}
+                            icon={faStar}
+                          />
+                        );
+                      })}
+                    {ratingAvg % 1 !== 0 && (
+                      <FontAwesomeIcon
+                        className={styles.star}
+                        icon={faStarHalfAlt}
+                      />
+                    )}
+                    {ratingAvg % 1 !== 0 &&
+                      [...Array(5 - Math.floor(ratingAvg) - 1)].map(
+                        (e, index) => {
+                          return (
+                            <FontAwesomeIcon
+                              key={index}
+                              className={styles.starOpaque}
+                              icon={faStar}
+                            />
+                          );
+                        }
+                      )}
+                  </div>
+                )}
+              </header>
+            )}
+
+            <div className={styles.reviews}>
+              {newReviews?.map((review, index) => (
+                <Review key={index} review={review} />
+              ))}
+              {newReviews?.length <= 0 && (
+                <>
+                  <p className="dim">
+                    There are no reviews for this product. Be the first to leave
+                    a rating.
+                  </p>
+                </>
+              )}
+              {showForm && (
+                <div className={styles.reviewForm}>
+                  <div className={styles.starContainer}>
+                    <h6>Your Overall Rating</h6>
+
+                    <div className={styles.stars}>
+                      {[...Array(reviewRating)].map((e, index) => {
+                        return (
+                          <FontAwesomeIcon
+                            key={index}
+                            className={styles.star}
+                            icon={faStar}
+                            onMouseEnter={() => setReviewRating(index + 1)}
+                          />
+                        );
+                      })}
+                      {[...Array(5 - reviewRating)].map((e, index) => {
+                        return (
+                          <FontAwesomeIcon
+                            key={index}
+                            className={styles.starOpaque}
+                            icon={faStar}
+                            onMouseEnter={() =>
+                              setReviewRating(reviewRating + index + 1)
+                            }
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <h6>What&apos;s your name?</h6>
+                  <input ref={nameRef} placeholder="Your name" />
+                  <h6>Choose a title for your review</h6>
+                  <input ref={titleRef} placeholder="Creative title" />
+                  <h6>What did you like or dislike?</h6>
+                  <input
+                    ref={reviewRef}
+                    placeholder="Let future buyers know."
+                  />
+                  <div className={styles.actions}>
+                    <button className="btn-small" onClick={handleReview}>
+                      Post
+                    </button>
+                    <button
+                      className="btn-small danger"
+                      onClick={() => setShowForm(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+              {!showForm && (
+                <button className="btn-small" onClick={() => setShowForm(true)}>
+                  Leave a Review
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -292,12 +346,51 @@ export default function ProductDetails({ product, products }) {
   );
 }
 
+function Review({ review: { name, contents, rating, title, _createdAt } }) {
+  const date = new Date(_createdAt);
+
+  return (
+    <div className={styles.review}>
+      <header>
+        <h6>
+          {name} <span className="dim">{date.toLocaleDateString()}</span>
+        </h6>
+        <div className={styles.stars}>
+          {[...Array(rating)].map((e, index) => {
+            return (
+              <FontAwesomeIcon
+                key={index}
+                className={styles.star}
+                icon={faStar}
+              />
+            );
+          })}
+          {[...Array(5 - rating)].map((e, index) => {
+            return (
+              <FontAwesomeIcon
+                key={index}
+                className={styles.starOpaque}
+                icon={faStar}
+              />
+            );
+          })}
+        </div>
+      </header>
+      <p>{title}</p>
+      <p className="dim">{contents}</p>
+    </div>
+  );
+}
+
 export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
   const product = await client.fetch(query);
 
   const productsQuery = `*[_type == "product" && slug.current != '${slug}']`;
   const orderedProducts = await client.fetch(productsQuery);
+
+  const reviewsQuery = `*[_type == "review" && slug == '${slug}']`;
+  const reviews = await client.fetch(reviewsQuery);
 
   function shuffleArray(array) {
     const newArray = [...array];
@@ -313,7 +406,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const products = shuffleArray(orderedProducts);
 
   return {
-    props: { product, products },
+    props: { product, products, reviews },
+    // revalidate: 60,
   };
 };
 
