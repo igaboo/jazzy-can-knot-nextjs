@@ -107,9 +107,9 @@ export default function ProductDetails({ product, products, reviews }) {
         <div className={styles.content}>
           <header className={styles.heading}>
             <button className="dim" onClick={() => router.back()}>
-              <p>
-                <FontAwesomeIcon icon={faChevronLeft} /> <span>Back</span>
-              </p>
+              <h5>
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </h5>
             </button>
             <h1>{name}</h1>
           </header>
@@ -351,8 +351,6 @@ function Review({ review: { name, contents, rating, title, _createdAt } }) {
 
   return (
     <div className={styles.review}>
-      {" "}
-      {/* test */}
       <header>
         <h6>
           {name} <span className="dim">{date.toLocaleDateString()}</span>
