@@ -9,13 +9,14 @@ export default function FadeIn({ children, each }) {
   const viewport = { once: true };
 
   return (
-    <motion.div
-      style={{ width: "100%", height: "100%" }}
-      initial={animation.from}
-      whileInView={animation.to}
-      viewport={viewport}
-    >
-      {children}
-    </motion.div>
+    <>{children}</>
+    // <motion.div
+    //   style={{ width: "100%", height: "100%" }}
+    //   initial={animation.from}
+    //   whileInView={animation.to}
+    //   viewport={viewport}
+    // >
+    //   {children}
+    // </motion.div>
   );
 }

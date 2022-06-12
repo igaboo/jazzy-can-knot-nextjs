@@ -9,19 +9,21 @@ export default function SlideUp({ children, delay }) {
   const viewport = { once: true };
 
   return (
-    <motion.div
-      style={{ width: "100%" }}
-      initial={animation.from}
-      whileInView={animation.to}
-      viewport={viewport}
-      transition={{
-        type: "spring",
-        duration: 1,
-        bounce: 0.3,
-        delay: delay && delay,
-      }}
-    >
-      {children}
-    </motion.div>
+    <>{children}</>
+
+    // <motion.div
+    //   style={{ width: "100%" }}
+    //   initial={animation.from}
+    //   whileInView={animation.to}
+    //   viewport={viewport}
+    //   transition={{
+    //     type: "spring",
+    //     duration: 1,
+    //     bounce: 0.3,
+    //     delay: delay && delay,
+    //   }}
+    // >
+    //   {children}
+    // </motion.div>
   );
 }
