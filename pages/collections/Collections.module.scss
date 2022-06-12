@@ -7,21 +7,19 @@
   header {
     display: flex;
     align-items: center;
+  }
+}
 
-    button span {
-      opacity: 0;
+.heading {
+  h5 {
+    display: flex;
+  }
 
-      display: inline-block;
-      width: 0;
+  button {
+    padding: 0;
+    margin: 0;
 
-      transition: all 200ms ease;
-    }
-
-    button:hover span {
-      opacity: 1;
-      width: 3rem;
-      margin-inline: 0.5rem;
-    }
+    margin-right: 1rem;
   }
 }
 
@@ -96,6 +94,9 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .container {
+    margin-block: 30px;
+  }
   .collections {
     grid-template-columns: 1fr 1fr;
 
@@ -104,6 +105,9 @@
 }
 
 @media screen and (max-width: 700px) {
+  .container {
+    margin-block: 20px;
+  }
   .collections {
     grid-template-columns: 1fr;
   }

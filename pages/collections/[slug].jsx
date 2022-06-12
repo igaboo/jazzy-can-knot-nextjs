@@ -46,11 +46,11 @@ export default function Products({ products }) {
         <title>{collection} | Jazzy Can Knot</title>
       </Head>
       <div className={styles.container}>
-        <header>
+        <header className={styles.heading}>
           <button className="dim" onClick={() => router.back()}>
-            <p>
-              <FontAwesomeIcon icon={faChevronLeft} /> <span>Back</span>
-            </p>
+            <h5>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </h5>
           </button>
           <h1>{collection}</h1>
         </header>
