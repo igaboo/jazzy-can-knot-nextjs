@@ -38,6 +38,12 @@ export default {
       type: "string",
     },
     {
+      name: "collections",
+      title: "Collections",
+      type: "array",
+      of: [{ type: "string" }],
+    },
+    {
       name: "color",
       title: "Color",
       type: "string",
