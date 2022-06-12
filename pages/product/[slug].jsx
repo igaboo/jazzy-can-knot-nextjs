@@ -351,6 +351,8 @@ function Review({ review: { name, contents, rating, title, _createdAt } }) {
 
   return (
     <div className={styles.review}>
+      {" "}
+      {/* test */}
       <header>
         <h6>
           {name} <span className="dim">{date.toLocaleDateString()}</span>
