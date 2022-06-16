@@ -63,6 +63,13 @@ export default function Navbar() {
             </li>
             <li
               className={
+                router.pathname === "/reviews" ? styles.active : undefined
+              }
+            >
+              <Link href="/reviews">Reviews</Link>
+            </li>
+            <li
+              className={
                 router.pathname === "/products" ? styles.active : undefined
               }
             >
