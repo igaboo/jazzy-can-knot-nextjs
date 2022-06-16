@@ -47,7 +47,7 @@ export default function Navbar() {
             </a>
           </Link>
           <ul>
-            <li
+            {/* <li
               className={
                 router.pathname === "/about" ? styles.active : undefined
               }
@@ -60,7 +60,7 @@ export default function Navbar() {
               }
             >
               <Link href="/contact">Contact</Link>
-            </li>
+            </li> */}
             <li
               className={
                 router.pathname === "/reviews" ? styles.active : undefined
