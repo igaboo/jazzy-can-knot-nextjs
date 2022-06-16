@@ -7,7 +7,9 @@ export default async function handler(req, res) {
     const url = req.body;
 
     await res
-      .unstable_revalidate(`/product/${url.current}`)
+      .unstable_revalidate(
+        url.current === "reviews" ? "/reviews" : `/product/${url.current}`
+      )
       .then(() => console.log("SUCCESS"));
     return res.json({ revalidated: true });
   } catch (err) {

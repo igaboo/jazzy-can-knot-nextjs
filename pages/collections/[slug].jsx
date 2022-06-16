@@ -7,17 +7,10 @@ import { useStateContext } from "../../context/StateContext";
 import { useEffect } from "react";
 import Head from "next/head";
 
-import { urlFor } from "../../lib/client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Header from "../../components/Header/Header";
 
-export default function Products({ products }) {
+export default function Products({ products, reviews }) {
   const { setFooterColor } = useStateContext();
 
   const router = useRouter();
@@ -46,31 +39,29 @@ export default function Products({ products }) {
         <title>{collection} | Jazzy Can Knot</title>
       </Head>
       <div className={styles.container}>
-        <header className={styles.heading}>
-          <button className="dim" onClick={() => router.back()}>
-            <h5>
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </h5>
-          </button>
-          <h1>{collection}</h1>
-        </header>
-        <h5 className="dim">
-          Showing {filteredProducts.length} product
-          {filteredProducts.length === 1 ? "" : "s"}
-        </h5>
+        <Header
+          title={collection}
+          subtitle={`Showing ${filteredProducts.length} product${
+            filteredProducts.length === 1 ? "" : "s"
+          }`}
+        />
+
+        <ProductsList products={filteredProducts} reviews={reviews} />
+        <div className="gap" />
       </div>
-      <ProductsList products={filteredProducts} />
-      <div className="gap" />
     </>
   );
 }
 
-export const getStaticProps = async ({ params: slug }) => {
+export const getStaticProps = async () => {
   const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 
+  const reviewsQuery = `*[_type == "review"]`;
+  const reviews = await client.fetch(reviewsQuery);
+
   return {
-    props: { products },
+    props: { products, reviews },
   };
 };
 

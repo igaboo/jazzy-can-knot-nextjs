@@ -12,7 +12,7 @@ import { client } from "../lib/client";
 import { useEffect } from "react";
 import { useStateContext } from "../context/StateContext";
 
-export default function Index({ products, banner }) {
+export default function Index({ products, banner, reviews }) {
   const { setFooterColor } = useStateContext();
 
   useEffect(() => {
@@ -30,13 +30,17 @@ export default function Index({ products, banner }) {
           );
         })}
       <div className="gap" />
-      <Products
-        title="Tie Blankets"
-        showButton
-        products={
-          products && products.filter((product) => product.featured === false)
-        }
-      />
+      <div className={styles.products}>
+        <Products
+          title="Tie Blankets"
+          showButton
+          products={
+            products && products.filter((product) => product.featured === false)
+          }
+          reviews={reviews && reviews}
+        />
+      </div>
+
       <BulkContact />
       <FeaturedPosts />
     </>
@@ -50,7 +54,10 @@ export const getServerSideProps = async () => {
   const bannerQuery = '*[_type == "banner"]';
   const banner = await client.fetch(bannerQuery);
 
+  const reviewsQuery = `*[_type == "review"]`;
+  const reviews = await client.fetch(reviewsQuery);
+
   return {
-    props: { products, banner },
+    props: { products, banner, reviews },
   };
 };
