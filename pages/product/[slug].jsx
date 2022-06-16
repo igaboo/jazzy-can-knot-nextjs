@@ -47,19 +47,23 @@ export default function ProductDetails({ product, products, reviews }) {
   async function handleReview() {
     const selectedImage = uploadImage;
 
+    let review = {
+      _type: "review",
+      slug: slug.current,
+      name: nameRef.current.value,
+      rating: reviewRating,
+      title: titleRef.current.value,
+      contents: reviewRef.current.value,
+    };
+
     client.assets
-      .upload("image", selectedImage, {
-        contentType: selectedImage.type,
-        filename: selectedImage.name,
+      .upload("image", selectedImage && selectedImage, {
+        contentType: selectedImage?.type,
+        filename: selectedImage?.name,
       })
       .then(async (doc) => {
-        const review = {
-          _type: "review",
-          slug: slug.current,
-          name: nameRef.current.value,
-          rating: reviewRating,
-          title: titleRef.current.value,
-          contents: reviewRef.current.value,
+        review = {
+          ...review,
           image: doc._id && {
             _type: "image",
             asset: {
@@ -75,22 +79,18 @@ export default function ProductDetails({ product, products, reviews }) {
             { ...review, _createdAt: new Date().toLocaleDateString() },
           ]);
           setShowForm(false);
-
-          fetch(
-            "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(slug),
-            }
-          );
-          // .then((res) => {
-          //   toast.success("Review successfully created!");
-          //   console.log(res);
-          // });
         });
+
+        await fetch(
+          "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(slug),
+          }
+        );
       })
       .catch((err) => console.log(err));
   }
