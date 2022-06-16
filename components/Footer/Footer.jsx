@@ -11,7 +11,15 @@ import Link from "next/link";
 import { useStateContext } from "../../context/StateContext";
 
 export default function Footer() {
-  const sitemap = ["home", "about", "products", "contact", "basket"];
+  const sitemap = [
+    "home",
+    "about",
+    "contact",
+    "reviews",
+    "products",
+    "collections",
+    "basket",
+  ];
 
   const { footerColor, setShowCart } = useStateContext();
 
