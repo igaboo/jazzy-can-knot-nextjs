@@ -1,20 +1,21 @@
 import styles from "./BulkContact.module.scss";
 
 import Button from "../Button/Button";
-import FadeIn from "../../animation/FadeIn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaintbrush, faPalette } from "@fortawesome/free-solid-svg-icons";
 
 export default function BulkContact() {
   return (
-    <FadeIn>
-      <div className={styles.container}>
-        <h2>Looking to buy in bulk?</h2>
-        <p>
-          Gifting the entire family tie blankets? What a lucky bunch! Contact me
-          ahead of time to ensure availability, as well as to discuss pricing,
-          and turn around times.
-        </p>
-        <Button text="Contact Me" href="/contact" color="#e6ffda" />
-      </div>
-    </FadeIn>
+    <div className={styles.container}>
+      <h1>
+        <FontAwesomeIcon icon={faPalette} size="xl" />
+      </h1>
+      <h2>Looking for something more customizable?</h2>
+      <p>
+        Contact me to request a custom made order, which will allow you to
+        choose the front and back patterns, as well as the size.
+      </p>
+      <Button text="Request Custom Order" href="/contact" color="#e6ffda" />
+    </div>
   );
 }
