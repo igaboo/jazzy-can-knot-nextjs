@@ -36,6 +36,7 @@ export default function ProductDetails({ product, products, reviews }) {
   const nameRef = useRef();
   const titleRef = useRef();
   const reviewRef = useRef();
+  const [uploadImage, setUploadImage] = useState(null);
 
   let sum = 0;
   for (var i = 0; i < newReviews.length; i++) {
@@ -44,41 +45,63 @@ export default function ProductDetails({ product, products, reviews }) {
   let ratingAvg = (sum / newReviews.length).toFixed(1);
 
   async function handleReview() {
-    const review = {
-      _type: "review",
-      slug: slug.current,
-      name: nameRef.current.value,
-      rating: reviewRating,
-      title: titleRef.current.value,
-      contents: reviewRef.current.value,
-    };
+    const selectedImage = uploadImage;
 
-    await client.create(review).then(() => {
-      setNewReviews([
-        ...newReviews,
-        { ...review, _createdAt: new Date().toLocaleDateString() },
-      ]);
-      setShowForm(false);
-
-      fetch(
-        "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+    client.assets
+      .upload("image", selectedImage, {
+        contentType: selectedImage.type,
+        filename: selectedImage.name,
+      })
+      .then(async (doc) => {
+        const review = {
+          _type: "review",
+          slug: slug.current,
+          name: nameRef.current.value,
+          rating: reviewRating,
+          title: titleRef.current.value,
+          contents: reviewRef.current.value,
+          image: doc._id && {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: doc._id,
+            },
           },
-          body: JSON.stringify(slug),
-        }
-      ).then((res) => {
-        console.log(res);
-        toast.success("Review successfully created!");
-      });
-    });
+        };
+
+        await client.create(review).then(() => {
+          fetch(
+            "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(slug),
+            }
+          ).then((res) => {
+            console.log(res);
+
+            setNewReviews([
+              ...newReviews,
+              { ...review, _createdAt: new Date().toLocaleDateString() },
+            ]);
+            setShowForm(false);
+
+            toast.success("Review successfully created!");
+          });
+        });
+      })
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {
     setCurrentImage(image[0]);
-    setNewReviews(reviews);
+    setNewReviews(
+      reviews.filter((review) => {
+        return review.slug === product.slug.current;
+      })
+    );
     setFooterColor(color);
   }, [router]);
 
@@ -95,14 +118,17 @@ export default function ProductDetails({ product, products, reviews }) {
             alt="preview"
             className={styles.mobileImage}
           />
-          {image?.map((image, index) => (
-            <img
-              key={index}
-              src={urlFor(image)}
-              alt="preview"
-              onMouseEnter={() => setCurrentImage(image)}
-            />
-          ))}
+          {image?.map((image, index) => {
+            return (
+              <div key={index} className={styles.imgWrapper}>
+                <img
+                  src={urlFor(image)}
+                  alt="preview"
+                  onMouseEnter={() => setCurrentImage(image)}
+                />
+              </div>
+            );
+          })}
         </div>
         <div className={styles.content}>
           <header className={styles.heading}>
@@ -308,6 +334,24 @@ export default function ProductDetails({ product, products, reviews }) {
                       })}
                     </div>
                   </div>
+                  <div
+                    className={styles.uploadImage}
+                    onClick={() => {
+                      document.getElementById("imageUpload").click();
+                    }}
+                  >
+                    {uploadImage && (
+                      <img src={URL.createObjectURL(uploadImage)} />
+                    )}
+                  </div>
+
+                  <h6>Upload photo</h6>
+                  <input
+                    type="file"
+                    onChange={(e) => setUploadImage(e.target.files[0])}
+                    style={{ display: "none" }}
+                    id="imageUpload"
+                  />
                   <h6>What&apos;s your name?</h6>
                   <input ref={nameRef} placeholder="Your name" />
                   <h6>Choose a title for your review</h6>
@@ -339,16 +383,26 @@ export default function ProductDetails({ product, products, reviews }) {
           </div>
         </div>
       </div>
-      <div className="gap" />
-      <Products title="You Might Also Like" products={products} max={3} />
-      <div className="gap" />
+      <div className={styles.products}>
+        <div className="gap" />
+        <Products
+          title="You Might Also Like"
+          products={products}
+          reviews={reviews}
+          max={3}
+        />
+        <div className="gap" />
+      </div>
     </>
   );
 }
 
-function Review({ review: { name, contents, rating, title, _createdAt } }) {
+function Review({
+  review: { name, contents, rating, title, _createdAt, image },
+}) {
   const date = new Date(_createdAt);
 
+  const url = image && urlFor(image?.asset._ref);
   return (
     <div className={styles.review}>
       <header>
@@ -376,8 +430,16 @@ function Review({ review: { name, contents, rating, title, _createdAt } }) {
           })}
         </div>
       </header>
-      <p>{title}</p>
-      <p className="dim">{contents}</p>
+      <main>
+        <div className={styles.content}>
+          <p>{title}</p>
+          <p className="dim">{contents}</p>
+        </div>
+
+        <div className={styles.images}>
+          {image && <img src={url?.options.source && url.url()} />}
+        </div>
+      </main>
     </div>
   );
 }
@@ -389,8 +451,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const productsQuery = `*[_type == "product" && slug.current != '${slug}']`;
   const orderedProducts = await client.fetch(productsQuery);
 
-  const reviewsQuery = `*[_type == "review" && slug == '${slug}']`;
-  const reviews = await client.fetch(reviewsQuery);
+  const reviewQuery = `*[_type == "review"]`;
+  const reviews = await client.fetch(reviewQuery);
 
   function shuffleArray(array) {
     const newArray = [...array];
@@ -407,7 +469,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: { product, products, reviews },
-    // revalidate: 60,
   };
 };
 
