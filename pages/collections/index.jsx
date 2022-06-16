@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import FadeIn from "../../animation/FadeIn";
+import Header from "../../components/Header/Header";
 
 export default function Collections({ products }) {
   const { setFooterColor } = useStateContext();
@@ -34,26 +35,24 @@ export default function Collections({ products }) {
         <title>Collections | Jazzy Can Knot</title>
       </Head>
       <div className={styles.container}>
-        <h1>Collections</h1>
-        <h5 className="dim">
-          Showing {collectionSet.length} collection
-          {collectionSet.length === 1 ? "" : "s"}
-        </h5>
-        <FadeIn>
-          <div className={styles.collections}>
-            {collectionSet.map((collection, index) => {
-              return (
-                <Collection
-                  key={index}
-                  collection={collection}
-                  products={products && products}
-                />
-              );
-            })}
-          </div>
-        </FadeIn>
+        <Header
+          title="Collections"
+          subtitle={`Showing ${collectionSet.length} collection${
+            collectionSet.length === 1 ? "" : "s"
+          }`}
+        />
+        <div className={styles.collections}>
+          {collectionSet.map((collection, index) => {
+            return (
+              <Collection
+                key={index}
+                collection={collection}
+                products={products && products}
+              />
+            );
+          })}
+        </div>
       </div>
-
       <div className="gap" />
     </>
   );

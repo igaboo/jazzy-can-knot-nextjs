@@ -46,6 +46,12 @@
   gap: 5rem;
 }
 
+@media screen and (max-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .container {
     gap: 2rem;
@@ -71,8 +77,5 @@
       align-items: center;
       justify-content: center;
     }
-  }
-
-  .grid {
   }
 }
