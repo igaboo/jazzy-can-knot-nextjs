@@ -40,7 +40,6 @@ export default function Index({ products, banner, reviews }) {
           reviews={reviews && reviews}
         />
       </div>
-
       <BulkContact />
       <FeaturedPosts />
     </>
