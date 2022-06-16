@@ -1,3 +1,7 @@
+import styles from "./Contact.module.scss";
+import { useStateContext } from "../../context/StateContext";
+import { useEffect } from "react";
+import Link from "next/link";
 import {
   faArrowRight,
   faArrowRightArrowLeft,
@@ -6,11 +10,6 @@ import {
   faMedal,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./Contact.module.scss";
-
-import Link from "next/link";
-import { useEffect } from "react";
-import { useStateContext } from "../../context/StateContext";
 
 export default function Contact() {
   const { setFooterColor } = useStateContext();
