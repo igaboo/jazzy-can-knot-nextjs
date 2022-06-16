@@ -1,11 +1,12 @@
 import styles from "./Products.module.scss";
 
-import { Products as ProductsList } from "../../components";
-
 import { client } from "../../lib/client";
 import { useStateContext } from "../../context/StateContext";
+
 import { useEffect } from "react";
+
 import Header from "../../components/Header/Header";
+import { Products as ProductsList } from "../../components";
 
 export default function Products({ products, reviews }) {
   const { setFooterColor } = useStateContext();
@@ -28,7 +29,7 @@ export default function Products({ products, reviews }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 

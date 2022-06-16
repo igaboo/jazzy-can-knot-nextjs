@@ -1,14 +1,14 @@
 import styles from "./Collections.module.scss";
 
-import { Products as ProductsList } from "../../components";
-
 import { client } from "../../lib/client";
 import { useStateContext } from "../../context/StateContext";
+
 import { useEffect } from "react";
 import Head from "next/head";
-
 import { useRouter } from "next/router";
+
 import Header from "../../components/Header/Header";
+import { Products as ProductsList } from "../../components";
 
 export default function Products({ products, reviews }) {
   const { setFooterColor } = useStateContext();
@@ -53,7 +53,7 @@ export default function Products({ products, reviews }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 
@@ -65,21 +65,21 @@ export const getStaticProps = async () => {
   };
 };
 
-export const getStaticPaths = async () => {
-  const query = `*[_type == "product" ] {
-    slug {
-      current
-    }
-  }`;
+// export const getStaticPaths = async () => {
+//   const query = `*[_type == "product" ] {
+//     slug {
+//       current
+//     }
+//   }`;
 
-  const products = await client.fetch(query);
+//   const products = await client.fetch(query);
 
-  const paths = products?.map((product) => ({
-    params: { slug: product.slug.current },
-  }));
+//   const paths = products?.map((product) => ({
+//     params: { slug: product.slug.current },
+//   }));
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };

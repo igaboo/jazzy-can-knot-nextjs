@@ -1,10 +1,12 @@
 import styles from "./Success.module.scss";
 
-import { useEffect } from "react";
-import Link from "next/link";
 import { useStateContext } from "../../context/StateContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+
+import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Success() {
   const { setCartItems, setTotalPrice, setTotalQuantities, setFooterColor } =

@@ -1,10 +1,15 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from "./Reviews.module.scss";
+
+import { client, urlFor } from "../../lib/client";
+
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { client, urlFor } from "../../lib/client";
-import styles from "./Reviews.module.scss";
+
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import ReviewForm from "../../components/ReviewForm/ReviewForm";
 
 export default function Reviews({ reviews }) {
   return (
@@ -80,6 +85,7 @@ function RatingWidget({ reviews }) {
   const nameRef = useRef();
   const titleRef = useRef();
   const reviewRef = useRef();
+  const [uploadImage, setUploadImage] = useState(null);
 
   return (
     <div className={styles.ratingWidget}>
@@ -121,47 +127,14 @@ function RatingWidget({ reviews }) {
       </main>
       <footer>
         {showForm && (
-          <div className={styles.reviewForm}>
-            <div className={styles.starContainer}>
-              <h6>Your Overall Rating</h6>
-
-              <div className={styles.stars}>
-                {[...Array(5)].map((e, index) => {
-                  return (
-                    <FontAwesomeIcon
-                      key={index}
-                      className={
-                        styles[
-                          index >= Math.floor(reviewRating)
-                            ? "starOpaque"
-                            : "star"
-                        ]
-                      }
-                      icon={faStar}
-                      onMouseEnter={() => setReviewRating(index + 1)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-            <h6>What&apos;s your name?</h6>
-            <input ref={nameRef} placeholder="Your name" />
-            <h6>Choose a title for your review</h6>
-            <input ref={titleRef} placeholder="Creative title" />
-            <h6>What did you like or dislike?</h6>
-            <input ref={reviewRef} placeholder="Let future buyers know." />
-            <div className={styles.actions}>
-              <button className="btn-small" onClick={handleReview}>
-                Post
-              </button>
-              <button
-                className="btn-small danger"
-                onClick={() => setShowForm(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+          <ReviewForm
+            reviewRating={reviewRating}
+            setReviewRating={setReviewRating}
+            uploadImage={uploadImage}
+            setUploadImage={setUploadImage}
+            handleReview={handleReview}
+            setShowForm={setShowForm}
+          />
         )}
         {!showForm && (
           <button className="btn-secondary" onClick={() => setShowForm(true)}>
@@ -229,7 +202,7 @@ function ReviewWall({ reviews }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const reviews = await client.fetch(`*[_type == "review"]`);
 
   return {

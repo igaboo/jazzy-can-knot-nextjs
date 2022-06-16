@@ -1,15 +1,15 @@
 import styles from "./Collections.module.scss";
 
-import { client } from "../../lib/client";
+import { client, urlFor } from "../../lib/client";
 import { useStateContext } from "../../context/StateContext";
+
 import { useEffect } from "react";
+import Link from "next/link";
 import Head from "next/head";
 
-import { urlFor } from "../../lib/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import FadeIn from "../../animation/FadeIn";
+
 import Header from "../../components/Header/Header";
 
 export default function Collections({ products }) {
@@ -97,7 +97,7 @@ function Collection({ collection, products }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 
