@@ -5,8 +5,9 @@ import { Products as ProductsList } from "../../components";
 import { client } from "../../lib/client";
 import { useStateContext } from "../../context/StateContext";
 import { useEffect } from "react";
+import Header from "../../components/Header/Header";
 
-export default function Products({ products }) {
+export default function Products({ products, reviews }) {
   const { setFooterColor } = useStateContext();
 
   useEffect(() => {
@@ -16,11 +17,13 @@ export default function Products({ products }) {
   return (
     <>
       <div className={styles.container}>
-        <h1>Tie Blankets</h1>
-        <h5 className="dim">Showing {products.length} blankets</h5>
+        <Header
+          title="Tie Blankets"
+          subtitle={`Showing ${products.length} blankets`}
+        />
+        <ProductsList products={products} reviews={reviews} />
+        <div className="gap" />
       </div>
-      <ProductsList products={products} />
-      <div className="gap" />
     </>
   );
 }
@@ -29,7 +32,10 @@ export const getStaticProps = async () => {
   const productsQuery = `*[_type == "product"]`;
   const products = await client.fetch(productsQuery);
 
+  const reviewsQuery = `*[_type == "review"]`;
+  const reviews = await client.fetch(reviewsQuery);
+
   return {
-    props: { products },
+    props: { products, reviews },
   };
 };
