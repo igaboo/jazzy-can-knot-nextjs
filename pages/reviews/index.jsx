@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { client } from "../../lib/client";
+import { client, urlFor } from "../../lib/client";
 import styles from "./Reviews.module.scss";
 
 export default function Reviews({ reviews }) {
@@ -182,7 +182,10 @@ function ReviewWall({ reviews }) {
       </header>
       <div className={styles.reviews}>
         {reviews.map((review) => {
-          const { name, rating, contents, title, slug, _createdAt } = review;
+          const { name, rating, contents, title, slug, _createdAt, image } =
+            review;
+
+          const url = image && urlFor(image?.asset._ref);
 
           return (
             <div key={_createdAt} className={styles.review}>
@@ -209,9 +212,14 @@ function ReviewWall({ reviews }) {
                     {" " + rating + ".0"}
                   </h6>
                 </div>
+                <div className={styles.content}>
+                  <div>
+                    <h5>{title}</h5>
+                    <p className="dim">{contents}</p>
+                  </div>
 
-                <h5>{title}</h5>
-                <p className="dim">{contents}</p>
+                  {image && <img src={url?.options.source && url.url()} />}
+                </div>
               </div>
             </div>
           );
