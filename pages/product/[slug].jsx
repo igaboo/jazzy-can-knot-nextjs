@@ -69,13 +69,13 @@ export default function ProductDetails({ product, products, reviews }) {
           },
         };
 
-        setNewReviews([
-          ...newReviews,
-          { ...review, _createdAt: new Date().toLocaleDateString() },
-        ]);
-        setShowForm(false);
-
         await client.create(review).then(() => {
+          setNewReviews([
+            ...newReviews,
+            { ...review, _createdAt: new Date().toLocaleDateString() },
+          ]);
+          setShowForm(false);
+
           fetch(
             "/api/revalidate?secret=" + process.env.NEXT_PUBLIC_MY_SECRET_TOKEN,
             {
@@ -85,11 +85,11 @@ export default function ProductDetails({ product, products, reviews }) {
               },
               body: JSON.stringify(slug),
             }
-          ).then((res) => {
-            toast.success("Review successfully created!");
-
-            console.log(res);
-          });
+          );
+          // .then((res) => {
+          //   toast.success("Review successfully created!");
+          //   console.log(res);
+          // });
         });
       })
       .catch((err) => console.log(err));
