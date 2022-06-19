@@ -97,6 +97,7 @@
     position: sticky;
     top: 5rem;
     background-color: white;
+    z-index: 1;
 
     border-bottom: 2px solid rgb(222, 222, 222);
     padding-bottom: 1rem;
@@ -199,6 +200,8 @@
   .reviewWall {
     header {
       margin-left: 1rem;
+
+      top: 57px;
     }
 
     .review {
