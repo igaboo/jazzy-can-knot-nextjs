@@ -15,7 +15,7 @@ export default function BulkContact() {
         Contact me to request a custom made order, which will allow you to
         choose the front and back patterns, as well as the size.
       </p>
-      <Button text="Request Custom Order" href="/contact" color="#e6ffda" />
+      <Button text="Request Custom Order" href="/contact" color="#f1f1f1" />
     </div>
   );
 }
