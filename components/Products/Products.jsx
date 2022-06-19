@@ -54,7 +54,7 @@ export default function Products({
       </div>
 
       {showButton && (
-        <Button text="View All" href="/products" color="#e6ffda" />
+        <Button text="View All" href="/products" color="#f1f1f1" />
       )}
     </div>
   );
@@ -152,9 +152,7 @@ function Product({ product, reviews }) {
               {` ${average} (${reviews.length})`}
             </div>
           </div>
-          <p>
-            <FontAwesomeIcon color={color} icon={faCaretRight} />
-          </p>
+          <p>{/* <FontAwesomeIcon color={color} icon={faCaretRight} /> */}</p>
         </div>
       </div>
     </Link>

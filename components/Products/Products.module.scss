@@ -21,13 +21,13 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
+  // gap: 1rem;
 }
 
 .product {
   padding: 2rem;
 
-  border-radius: 10px;
+  // border-radius: 10px;
 
   transition: background-color 200ms ease;
 
@@ -82,6 +82,8 @@
 @media screen and (max-width: 1000px) {
   .grid {
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    row-gap: 2rem;
   }
 
   .container {
@@ -94,14 +96,18 @@
     }
   }
 
+  .content {
+    margin-top: 10px;
+  }
+
   .product {
-    padding: 1rem;
+    padding: 0rem;
   }
 }
 
 @media screen and (max-width: 700px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .container {
