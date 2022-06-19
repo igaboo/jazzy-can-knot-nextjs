@@ -26,8 +26,8 @@ export default function DropdownMenu({ placeholder, options, size, setSize }) {
             showDropdown ? styles.active : undefined
           }`}
         >
-          {options?.map((option) => {
-            return <Option option={option} size={size} />;
+          {options?.map((option, index) => {
+            return <Option key={index} option={option} size={size} />;
           })}
         </div>
       </div>
