@@ -31,7 +31,7 @@
   min-width: 40rem;
 
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
 
   svg {
     color: black;
@@ -88,7 +88,7 @@
 
     button {
       width: 100%;
-      height: 4rem;
+
       // margin-top: 5rem;
     }
   }
