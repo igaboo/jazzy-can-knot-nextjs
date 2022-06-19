@@ -12,9 +12,11 @@ button {
 .btn-square {
   border: 2px solid black;
   // border-radius: 5px;
-  border-radius: 10rem;
+  border-radius: 5px;
 
-  font-size: clamp(1.1rem, 2vw, 1.1rem);
+  padding: 1rem;
+
+  font-size: clamp(1rem, 2vw, 1.1rem);
   font-weight: 800;
 
   overflow: hidden;
