@@ -16,9 +16,10 @@ import {
   faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Products } from "../../components";
+import { FeaturedPosts, Products } from "../../components";
 
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
+import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
 export default function ProductDetails({ product, products, reviews }) {
   const { image, name, details, price, color, slug, collections } =
@@ -27,7 +28,7 @@ export default function ProductDetails({ product, products, reviews }) {
 
   const router = useRouter();
 
-  const [size, setSize] = useState("S");
+  const [size, setSize] = useState("Small");
   const [currentImage, setCurrentImage] = useState(image[0]);
   const [newReviews, setNewReviews] = useState([]);
 
@@ -121,6 +122,7 @@ export default function ProductDetails({ product, products, reviews }) {
                   src={urlFor(image)}
                   alt="preview"
                   onMouseEnter={() => setCurrentImage(image)}
+                  className={image === currentImage && styles.active}
                 />
               </div>
             );
@@ -210,26 +212,53 @@ export default function ProductDetails({ product, products, reviews }) {
                 $
                 {
                   price[
-                    size === "B"
+                    size === "Toddler"
                       ? 0
-                      : size === "S"
+                      : size === "Small"
                       ? 1
-                      : size === "M"
+                      : size === "Medium"
                       ? 2
-                      : size === "L"
+                      : size === "Large"
                       ? 3
                       : 0
                   ]
                 }
               </h3>
               <h5 className="dim">
-                {size === "B" && "Baby - 1x1 yard"}
-                {size === "S" && "Small - 2x2 yards"}
-                {size === "M" && "Medium - 3x3 yards"}
-                {size === "L" && "Large - 4x4 yards"}
+                {size === "Toddler" && "Toddler - 1x1 yard"}
+                {size === "Small" && "Small - 2x2 yards"}
+                {size === "Medium" && "Medium - 3x3 yards"}
+                {size === "Large" && "Large - 4x4 yards"}
               </h5>
               <p>{details}</p>
-              <div className={styles.sizeSelector}>
+              <DropdownMenu
+                size={size}
+                setSize={setSize}
+                placeholder="Select Size"
+                options={[
+                  {
+                    title: "Toddler",
+                    price: 35,
+                    onClick: () => setSize("Toddler"),
+                  },
+                  {
+                    title: "Small",
+                    price: 60,
+                    onClick: () => setSize("Small"),
+                  },
+                  {
+                    title: "Medium",
+                    price: 85,
+                    onClick: () => setSize("Medium"),
+                  },
+                  {
+                    title: "Large",
+                    price: 110,
+                    onClick: () => setSize("Large"),
+                  },
+                ]}
+              />
+              {/* <div className={styles.sizeSelector}>
                 <header>
                   <h6>Select Size</h6>
                   <h6 className="dim">Size Guide</h6>
@@ -268,7 +297,7 @@ export default function ProductDetails({ product, products, reviews }) {
                     L
                   </button>
                 </main>
-              </div>
+              </div> */}
               <div className={styles.buttons}>
                 <button
                   className="btn-primary"
@@ -411,8 +440,9 @@ export default function ProductDetails({ product, products, reviews }) {
           reviews={reviews}
           max={3}
         />
-        <div className="gap" />
       </div>
+      <div className="gap" />
+      <FeaturedPosts />
     </>
   );
 }

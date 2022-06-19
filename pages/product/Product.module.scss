@@ -59,7 +59,8 @@
 .content {
   position: sticky;
 
-  top: 10rem;
+  top: 5rem;
+  margin-top: 5rem;
 
   h3 {
     margin-top: 2rem;
@@ -127,7 +128,7 @@
   gap: 1rem;
 
   button {
-    height: 4rem;
+    // height: 4rem;
 
     svg {
       opacity: 0;
@@ -284,6 +285,21 @@
       img:first-of-type {
         grid-column: 1 / 5;
       }
+    }
+  }
+
+  .imgWrapper {
+    overflow: hidden;
+
+    img {
+      border-bottom: 5px solid transparent;
+    }
+
+    .active {
+      position: relative;
+      padding: 0.5rem;
+
+      border-bottom: 5px solid black;
     }
   }
 
