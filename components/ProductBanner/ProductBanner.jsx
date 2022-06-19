@@ -26,7 +26,9 @@ export default function ProductBanner({ product }) {
           </div>
 
           <div className={styles.content}>
-            <h1>{name}</h1>
+            <h1>
+              {name} {price[0] + "-" + price[price.length - 1]}
+            </h1>
             <p>{details}</p>
             <Button
               text="View Pattern"
