@@ -17,9 +17,10 @@ export default function Layout({ children }) {
         <meta name="theme-color" content={navColor} />
       </Head>
 
-      {router.pathname === "/" && <NotificationBanner />}
-
       <Navbar />
+      <NotificationBanner />
+      {/* {router.pathname === "/" && <NotificationBanner />} */}
+
       {children}
       <Footer />
     </div>
