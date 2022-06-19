@@ -12,7 +12,7 @@ export default function Button({ text, href, color }) {
           backgroundColor: color ? color : "#ffffff31",
           color: color ? "#000" : "#fff",
         }}
-        className={styles.button}
+        className={`${styles.button} ${color ? styles.color : styles.solid}`}
       >
         <h4>
           {text}

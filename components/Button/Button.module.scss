@@ -17,15 +17,23 @@
   }
 }
 
-.button:hover {
-  background-color: #fff !important;
-  color: #000 !important;
-
+.solid:hover,
+.color:hover {
   transition: none;
 
   svg {
     transform: translate(5px);
   }
+}
+
+.color:hover {
+  background-color: black !important;
+  color: white !important;
+}
+
+.solid:hover {
+  background-color: #fff !important;
+  color: #000 !important;
 }
 
 .button:active {
