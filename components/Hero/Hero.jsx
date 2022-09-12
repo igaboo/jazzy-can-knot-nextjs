@@ -21,7 +21,7 @@ export default function Hero({ banner }) {
         <div className={styles.content}>
           <h1>{banner.title}</h1>
           <p>{banner.desc}</p>
-          <Button text={banner.buttonText} href={`/products`} />
+          <Button text={banner.buttonText} href={`/products`} color="#f1f1f1" />
         </div>
         <div className={styles.imageContainer}>
           <img src={urlFor(banner.image)} alt="blanket pattern" />

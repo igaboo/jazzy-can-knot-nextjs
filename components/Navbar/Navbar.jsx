@@ -19,23 +19,17 @@ export default function Navbar() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (router.pathname === "/") {
-      setNavColor("#358457");
-    } else {
-      setNavColor("#fff");
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (router.pathname === "/") {
+  //     setNavColor("#358457");
+  //   } else {
+  //     setNavColor("#fff");
+  //   }
+  // }, [router]);
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: navColor,
-          color: navColor !== "#fff" ? "white" : "black",
-        }}
-        className={styles.bg}
-      >
+      <div className={styles.bg}>
         <div className={styles.container}>
           <Link href="/">
             <a>

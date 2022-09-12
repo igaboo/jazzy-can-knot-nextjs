@@ -1,13 +1,9 @@
-import styles from "./FeaturedPosts.module.scss";
-
-import { useState } from "react";
-import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
-import FadeIn from "../../animation/FadeIn";
-import SlideUp from "../../animation/SlideUp";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import styles from "./FeaturedPosts.module.scss";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function FeaturedPosts() {
   const [feed, setFeed] = useState([]);
@@ -45,35 +41,31 @@ export default function FeaturedPosts() {
 
   return (
     <div className={styles.container}>
-      <FadeIn>
-        <h2>#JazzyCanKnot Featured Posts</h2>
-        <p>
-          Tag me on Instagram using #JazzyCanKnot for a chance to be featured on
-          the site!
-        </p>
-      </FadeIn>
+      <h2>#JazzyCanKnot Featured Posts</h2>
+      <p>
+        Tag me on Instagram using #JazzyCanKnot for a chance to be featured on
+        the site!
+      </p>
 
-      <FadeIn>
-        <div className={styles.grid}>
-          {feed?.map((post) => {
-            return (
-              <Link href={post.permalink} key={post.id}>
-                <a>
-                  <div className={styles.imageContainer}>
-                    <img src={post.mediaUrl} />
-                    <div className={styles.hover}>
-                      <span>
-                        <FontAwesomeIcon icon={faInstagram} size="5x" />
-                        <h4>View on Instagram</h4>
-                      </span>
-                    </div>
+      <div className={styles.grid}>
+        {feed?.map((post) => {
+          return (
+            <Link href={post.permalink} key={post.id}>
+              <a>
+                <div className={styles.imageContainer}>
+                  <img src={post.mediaUrl} />
+                  <div className={styles.hover}>
+                    <span>
+                      <FontAwesomeIcon icon={faInstagram} size="5x" />
+                      <h4>View on Instagram</h4>
+                    </span>
                   </div>
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-      </FadeIn>
+                </div>
+              </a>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

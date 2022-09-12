@@ -16,11 +16,9 @@ export default function Layout({ children }) {
         <title>Jazzy Can Knot</title>
         <meta name="theme-color" content={navColor} />
       </Head>
-
-      <Navbar />
       <NotificationBanner />
+      <Navbar />
       {/* {router.pathname === "/" && <NotificationBanner />} */}
-
       {children}
       <Footer />
     </div>

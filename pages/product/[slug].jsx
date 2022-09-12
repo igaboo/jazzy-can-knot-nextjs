@@ -308,13 +308,13 @@ export default function ProductDetails({ product, products, reviews }) {
                         ...product,
                         price:
                           price[
-                            size === "B"
+                            size === "Toddler"
                               ? 0
-                              : size === "S"
+                              : size === "Small"
                               ? 1
-                              : size === "M"
+                              : size === "Medium"
                               ? 2
-                              : size === "L"
+                              : size === "Large"
                               ? 3
                               : 0
                           ],

@@ -1,21 +1,18 @@
-import styles from "./Cart.module.scss";
-
-import { useRef, useEffect, useState } from "react";
-
-import Link from "next/link";
-
-import { useStateContext } from "../../context/StateContext";
-import { urlFor } from "../../lib/client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
   faShoppingCart,
   faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useRef, useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import getStripe from "../../lib/getStripe";
+import styles from "./Cart.module.scss";
 import toast from "react-hot-toast";
+import { urlFor } from "../../lib/client";
+import { useStateContext } from "../../context/StateContext";
 
 export default function Cart({ showCart }) {
   const cartRef = useRef();

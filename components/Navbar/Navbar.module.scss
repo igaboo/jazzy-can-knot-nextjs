@@ -3,11 +3,16 @@
   top: 0;
   // transition: background-color 200ms ease;
 
-  z-index: 2;
-}
+  background-color: white;
 
-.logo {
-  color: red;
+  z-index: 2;
+
+  // /* From https://css.glass */
+  // background: rgba(255, 255, 255, 0.787);
+  // // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  // backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px);
+  // // border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .container {
@@ -55,7 +60,7 @@
     }
 
     li:not(.active):hover {
-      background-color: #00000010;
+      background-color: #ffffff;
     }
 
     li.active {
